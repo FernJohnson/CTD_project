@@ -1,6 +1,8 @@
 #Differential Gene Expression Analysis
 
 #First seperate by dataset source - 1 RNAseq exp, 2 beadchip exps
+#WBAL shorter is a cvs file containing sample accessions, and state of each sample - healthy or SLE patient
+#This is a subset of data from the full phenotypic set
 
 which(colnames(WBAL_shorter)=="GSM1863749")
 
@@ -138,13 +140,18 @@ write.table(SLEgenes, file="genelistrSLE.txt", row.names=FALSE, col.names=FALSE,
 
 #Analysis on combined datasets
 
+WBAL_exp<-fullexp[,colnames(WBAL_shorter)]
+amat1<-data.matrix(WBAL_exp, rownames.force = TRUE)
+
+amat2<-na.omit(amat1)
+
 design<-cbind(healthy=rep(0,268),SLE=rep(0,268))
 
-rownames(design)<-a
+rownames(design)<-colnames(WBAL_shorter)
 
 for (i in 1:length(a))
 {
-  if(WBAL_all[i]=="SLE")
+  if(WBAL_shorter[i]=="SLE")
   {
     design[i,2]<-1
   }
