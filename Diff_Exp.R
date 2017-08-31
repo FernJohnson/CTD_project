@@ -1,5 +1,7 @@
 #Differential Gene Expression Analysis
 
+library(limma)
+
 #First seperate by dataset source - 1 RNAseq exp, 2 beadchip exps
 #WBAL shorter is a cvs file containing sample accessions, and state of each sample - healthy or SLE patient
 #This is a subset of data from the full phenotypic set
